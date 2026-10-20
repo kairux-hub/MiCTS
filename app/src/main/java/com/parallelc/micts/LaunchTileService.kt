@@ -6,8 +6,14 @@ import android.content.Intent
 import android.os.Build
 import android.service.quicksettings.TileService
 import com.parallelc.micts.ui.activity.MainActivity
+import com.parallelc.micts.warmup.GsaWarmup
 
 class LaunchTileService : TileService() {
+    override fun onStartListening() {
+        super.onStartListening()
+        GsaWarmup.warm(applicationContext)
+    }
+
     @SuppressLint("StartActivityAndCollapseDeprecated")
     override fun onClick() {
         super.onClick()

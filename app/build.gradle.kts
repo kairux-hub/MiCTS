@@ -34,6 +34,10 @@ android {
     buildTypes {
         release {
             isMinifyEnabled = true
+            // Fork: fall back to the debug key when no release keystore is configured
+            if (!project.hasProperty("androidStoreFile")) {
+                signingConfig = signingConfigs.getByName("debug")
+            }
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
@@ -104,4 +108,6 @@ dependencies {
     compileOnly(libs.libxposed.api)
     implementation(libs.libxposed.service)
     implementation(libs.hiddenapibypass)
+    implementation(libs.shizuku.api)
+    implementation(libs.shizuku.provider)
 }

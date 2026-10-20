@@ -19,3 +19,8 @@
 
 -repackageclasses
 -allowaccessmodification
+
+# Fork: Shizuku + warm-up
+-keep class rikka.shizuku.** { *; }
+-keep class moe.shizuku.** { *; }
+-keep class org.lsposed.hiddenapibypass.** { *; }

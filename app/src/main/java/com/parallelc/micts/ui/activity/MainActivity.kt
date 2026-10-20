@@ -23,6 +23,7 @@ import com.parallelc.micts.config.AppConfig.KEY_DEFAULT_DELAY
 import com.parallelc.micts.config.AppConfig.KEY_TILE_DELAY
 import com.parallelc.micts.config.AppConfig.KEY_VIBRATE
 import com.parallelc.micts.module
+import com.parallelc.micts.warmup.WarmupHooks
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
@@ -91,7 +92,7 @@ class MainActivity : ComponentActivity() {
         }
         val prefs = getSharedPreferences(CONFIG_NAME, MODE_PRIVATE)
         val key = if (intent.getBooleanExtra("from_tile", false)) KEY_TILE_DELAY else KEY_DEFAULT_DELAY
-        val delayMs = prefs.getLong(key, DEFAULT_CONFIG[key] as Long)
+        val delayMs = WarmupHooks.delayWithWarmup(this, prefs.getLong(key, DEFAULT_CONFIG[key] as Long))
         val vibrate = prefs.getBoolean(KEY_VIBRATE, DEFAULT_CONFIG[KEY_VIBRATE] as Boolean)
 
         if (prefs.getBoolean(KEY_ASYNC_TRIGGER, DEFAULT_CONFIG[KEY_ASYNC_TRIGGER] as Boolean)) {
